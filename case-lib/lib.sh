@@ -35,7 +35,8 @@ fi
 
 # setup SOFCARD id
 if [ ! "$SOFCARD" ]; then
-    SOFCARD=$(grep -v 'sof-probes' /proc/asound/cards | grep 'sof-[a-z]' | awk '{print $1;}')
+	SOFCARD=$(grep -v 'sof-probes' /proc/asound/cards | grep 'sof-[a-z]' | awk '{$1=$1};1' | awk '$1 ~ /^[0-9]+$/ {print $1;}')
+
 fi
 
 func_lib_setup_kernel_checkpoint()
